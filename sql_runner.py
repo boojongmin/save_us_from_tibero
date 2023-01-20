@@ -1,8 +1,10 @@
 import sys
 import subprocess
 
+tmp_file_name = "./tmp.sql"
 
-def create_sql_file(sql_file_absolute_path, tmp_file_name):
+
+def create_sql_file(sql_file_absolute_path):
     with open(tmp_file_name, 'w') as f_w:
         with open(sql_file_absolute_path, 'r') as f_r:
             arr = []
@@ -22,7 +24,7 @@ def create_sql_file(sql_file_absolute_path, tmp_file_name):
     print(f"created file : {tmp_file_name}")
 
 
-def run_sql(data_source_name, tmp_file_name):
+def run_sql(data_source_name):
     command = f"isql -v {data_source_name} -w < {tmp_file_name}"
     print(command)
     run_command(command)
@@ -44,6 +46,5 @@ def run_command(command):
 if __name__ == '__main__':
     data_source_name = sys.argv[1]
     sql_file_absolute_path = sys.argv[2]
-    tmp_file_name = "./tmp.sql"
-    create_sql_file(sql_file_absolute_path, tmp_file_name)
-    run_sql(data_source_name, tmp_file_name)
+    create_sql_file(sql_file_absolute_path)
+    run_sql(data_source_name)
